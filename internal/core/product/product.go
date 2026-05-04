@@ -1,15 +1,20 @@
 package product
 
-import "fmt"
+import (
+	"fmt"
+	"time"
+)
 
 type Product struct {
-	ID          uint
-	Name        string
-	Description string
-	WeightKg    float64
-	Price       int64
-	Active      bool
-	Barcode     string
+	ID          uint      `gorm:"primaryKey"`
+	Name        string    `gorm:"not null;size:100" json:"name"`
+	Description string    `gorm:"size:255" json:"description"`
+	WeightKg    float64   `gorm:"not null;default:0" json:"weight_kg"`
+	Price       int64     `gorm:"not null;default:0" json:"price"`
+	Active      bool      `gorm:"not null;default:true" json:"active"`
+	Barcode     string    `gorm:"uniqueIndex" json:"barcode"`
+	CreatedAt   time.Time `json:"created_at"`
+	UpdatedAt   time.Time `json:"updated_at"`
 }
 
 func Print(p Product) {
